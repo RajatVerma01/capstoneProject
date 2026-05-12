@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Upload, Search, Loader2, Briefcase, MapPin, DollarSign, Clock, Bell, BellOff, Mail } from 'lucide-react';
-import { uploadResumeForJobs, searchJobs, setupFaangAlerts, getFaangAlerts, deleteFaangAlert } from './api';
+import { Upload, Search, Loader2, Briefcase, MapPin, DollarSign, Clock } from 'lucide-react';
+import { uploadResumeForJobs, searchJobs } from './api';
 
 export default function JobSearchView({ onBack }) {
   const [file, setFile] = useState(null);
@@ -13,12 +13,6 @@ export default function JobSearchView({ onBack }) {
   const [jobs, setJobs] = useState([]);
   const [userSkills, setUserSkills] = useState([]);
   const [userExperience, setUserExperience] = useState('');
-  
-  // FAANG alerts state
-  const [email, setEmail] = useState('');
-  const [alertsEnabled, setAlertsEnabled] = useState(false);
-  const [alertId, setAlertId] = useState(null);
-  const [alertLoading, setAlertLoading] = useState(false);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: { 'application/pdf': ['.pdf'], 'text/plain': ['.txt'] },
@@ -64,53 +58,14 @@ export default function JobSearchView({ onBack }) {
     }
   }
 
-  async function handleSetupAlerts(e) {
-    e.preventDefault();
-    if (!email.trim()) {
-      setError('Please enter your email address.');
-      return;
-    }
-    if (!resumeId) {
-      setError('Please upload your resume first.');
-      return;
-    }
-    setAlertLoading(true);
-    setError('');
-    try {
-      const data = await setupFaangAlerts({ email: email.trim(), resumeId });
-      setAlertId(data.id);
-      setAlertsEnabled(true);
-    } catch (err) {
-      setError(err.message || 'Failed to setup alerts.');
-    } finally {
-      setAlertLoading(false);
-    }
-  }
-
-  async function handleDisableAlerts() {
-    if (!alertId) return;
-    setAlertLoading(true);
-    setError('');
-    try {
-      await deleteFaangAlert(alertId);
-      setAlertId(null);
-      setAlertsEnabled(false);
-      setEmail('');
-    } catch (err) {
-      setError(err.message || 'Failed to disable alerts.');
-    } finally {
-      setAlertLoading(false);
-    }
-  }
-
   return (
     <div className="job-search-view">
       <div className="view-header">
         <button className="btn btn-ghost" onClick={onBack}>
           ← Back to Home
         </button>
-        <h1>Job Search & FAANG Alerts</h1>
-        <p>Upload your resume to find matching jobs and setup alerts</p>
+        <h1>Job Search & Matching</h1>
+        <p>Upload your resume to find matching jobs</p>
       </div>
 
       {!resumeUploaded ? (
@@ -156,66 +111,6 @@ export default function JobSearchView({ onBack }) {
             </div>
             {userExperience && (
               <p className="experience-text">Experience: {userExperience}</p>
-            )}
-          </div>
-
-          {/* FAANG Alerts Setup */}
-          <div className="card alerts-card">
-            <div className="alerts-header">
-              <Bell size={24} />
-              <h3>FAANG Job Alerts</h3>
-            </div>
-            <p className="card-subtitle">
-              Get notified when new jobs open at Facebook, Apple, Amazon, Netflix, Google
-            </p>
-
-            {!alertsEnabled ? (
-              <form onSubmit={handleSetupAlerts} className="alert-form">
-                <div className="form-row">
-                  <Mail size={18} />
-                  <input
-                    type="email"
-                    placeholder="your.email@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="input"
-                    disabled={alertLoading}
-                  />
-                </div>
-                <button type="submit" className="btn btn-primary" disabled={alertLoading}>
-                  {alertLoading ? (
-                    <>
-                      <Loader2 size={20} className="spin" /> Setting up…
-                    </>
-                  ) : (
-                    <>
-                      <Bell size={20} /> Enable Alerts
-                    </>
-                  )}
-                </button>
-              </form>
-            ) : (
-              <div className="alert-active">
-                <div className="alert-status">
-                  <Bell size={20} className="alert-icon-active" />
-                  <span>Alerts active for {email}</span>
-                </div>
-                <button
-                  className="btn btn-ghost"
-                  onClick={handleDisableAlerts}
-                  disabled={alertLoading}
-                >
-                  {alertLoading ? (
-                    <>
-                      <Loader2 size={18} className="spin" /> Disabling…
-                    </>
-                  ) : (
-                    <>
-                      <BellOff size={18} /> Disable Alerts
-                    </>
-                  )}
-                </button>
-              </div>
             )}
           </div>
 

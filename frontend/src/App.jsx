@@ -97,7 +97,7 @@ export default function App() {
         </button>
         <div className="logo">
           <img src="/logo.png" alt="Career Accelerator Logo" className="header-logo-img" />
-          <h1>Skill-Gap Career Roadmap</h1>
+          <h1>Career Accelerator</h1>
         </div>
         <p className="tagline">Upload your resume, set your target role — get a personalized learning path to close the gap.</p>
       </header>
