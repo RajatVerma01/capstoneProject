@@ -1,0 +1,234 @@
+/* ============================================
+   FEATURES GRID SECTION - Minimal & Professional
+   ============================================ */
+
+.features-grid-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-24) var(--space-8) var(--space-20);
+  background: transparent;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-20);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-header h2 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  margin: 0 0 var(--space-5);
+  color: var(--gray-900);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.section-header p {
+  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+  color: var(--gray-600);
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-grid-card {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10);
+  transition: all var(--transition-base);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-grid-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--primary-50) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+}
+
+.feature-grid-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  border-color: var(--primary-200);
+}
+
+.feature-grid-card:hover::before {
+  opacity: 1;
+}
+
+.feature-grid-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--primary-50);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-600);
+  margin-bottom: var(--space-6);
+  transition: all var(--transition-base);
+  position: relative;
+  z-index: 1;
+}
+
+.feature-grid-card:hover .feature-grid-icon {
+  background: var(--primary-600);
+  color: white;
+  transform: scale(1.05);
+}
+
+.feature-grid-card h3 {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  margin: 0 0 var(--space-3);
+  color: var(--gray-900);
+  letter-spacing: -0.01em;
+  position: relative;
+  z-index: 1;
+}
+
+.feature-grid-card > p {
+  font-size: var(--text-base);
+  color: var(--gray-600);
+  line-height: 1.7;
+  margin: 0 0 var(--space-6);
+  flex: 1;
+  font-weight: 400;
+  position: relative;
+  z-index: 1;
+}
+
+.feature-grid-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-6);
+  position: relative;
+  z-index: 1;
+}
+
+.feature-grid-list li {
+  padding: var(--space-2) 0;
+  color: var(--gray-700);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  line-height: 1.6;
+}
+
+.feature-grid-list li::before {
+  content: "✓";
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  color: var(--primary-600);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  margin-top: 2px;
+}
+
+.feature-grid-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  background: transparent;
+  color: var(--primary-600);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  width: auto;
+  align-self: flex-start;
+  position: relative;
+  z-index: 1;
+}
+
+.feature-grid-btn:hover {
+  color: var(--primary-700);
+  gap: var(--space-3);
+}
+
+.feature-grid-btn svg {
+  transition: transform var(--transition-base);
+}
+
+.feature-grid-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+}
+
+@media (max-width: 768px) {
+  .features-grid-section {
+    padding: var(--space-16) var(--space-4) var(--space-12);
+  }
+  
+  .section-header {
+    margin-bottom: var(--space-12);
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  
+  .feature-grid-card {
+    padding: var(--space-8);
+  }
+  
+  .feature-grid-icon {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .feature-grid-card h3 {
+    font-size: var(--text-lg);
+  }
+  
+  .feature-grid-card > p {
+    font-size: var(--text-sm);
+  }
+  
+  .feature-grid-list li {
+    font-size: var(--text-xs);
+  }
+}

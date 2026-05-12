@@ -1,0 +1,11 @@
+node_modules/
+.env
+backend/.env
+backend/uploads/
+*-service-account*.json
+*firebase*credentials*
+dist/
+frontend/dist/
+*.log
+.DS_Store
+roadmap-ffe52-firebase-adminsdk-fbsvc-53ab4661b5.json

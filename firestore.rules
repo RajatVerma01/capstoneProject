@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Only the backend (Admin SDK with service account) can access data.
+    // Deny all client (web/mobile) access.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

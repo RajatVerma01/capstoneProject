@@ -1,0 +1,222 @@
+/* ============================================
+   CAREER ACCELERATOR - MAIN STYLES
+   Modular CSS Architecture
+   ============================================ */
+
+/* Import all modular CSS files */
+@import './styles/hero.css';
+@import './styles/features.css';
+@import './styles/footer.css';
+@import './styles/components.css';
+
+/* ============================================
+   GLOBAL LAYOUT (for non-landing pages)
+   ============================================ */
+
+.app {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: calc(var(--space-8) + 100px) var(--space-6) var(--space-8);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Individual feature views */
+.job-search-view,
+.ai-interview-view,
+.faang-questions-view {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: calc(var(--space-8) + 100px) var(--space-6) var(--space-8);
+  min-height: 100vh;
+}
+
+.view-header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+  animation: fadeInDown 0.8s ease-out;
+  position: relative;
+}
+
+.view-header h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin: var(--space-6) 0 var(--space-4);
+  color: var(--gray-900);
+  letter-spacing: -0.02em;
+}
+
+.view-header p {
+  color: var(--gray-600);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  margin: 0;
+  font-weight: 500;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  width: 100%;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+}
+
+/* ============================================
+   HEADER SECTION (for other pages)
+   ============================================ */
+
+.header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+  animation: fadeInDown 0.8s ease-out;
+  position: relative;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  padding: var(--space-4) var(--space-8);
+  background: white;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-base);
+}
+
+.header-logo-img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+.logo svg {
+  color: var(--primary-600);
+  filter: drop-shadow(0 2px 8px rgba(59, 130, 246, 0.3));
+}
+
+.header h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  margin: 0 0 var(--space-4);
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-800) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tagline {
+  color: var(--gray-600);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  margin: 0;
+  font-weight: 500;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.footer {
+  text-align: center;
+  padding: var(--space-12) var(--space-6);
+  color: var(--gray-500);
+  font-size: var(--text-sm);
+  border-top: 2px solid var(--gray-200);
+  margin-top: var(--space-16);
+  background: white;
+  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+}
+
+.footer p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.back-home-btn {
+  position: absolute;
+  left: var(--space-6);
+  top: var(--space-6);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+  .app {
+    padding: calc(var(--space-4) + 90px) var(--space-4) var(--space-4);
+  }
+  
+  .job-search-view,
+  .ai-interview-view,
+  .faang-questions-view {
+    padding: calc(var(--space-4) + 90px) var(--space-4) var(--space-4);
+  }
+  
+  .header h1,
+  .view-header h1 {
+    font-size: 2rem;
+  }
+  
+  .tagline,
+  .view-header p {
+    font-size: 1rem;
+  }
+  
+  .back-home-btn {
+    position: static;
+    margin-bottom: var(--space-4);
+  }
+}

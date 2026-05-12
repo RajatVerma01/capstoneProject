@@ -1,0 +1,446 @@
+/* ============================================
+   ROADMAP VIEW - Modern & Professional
+   ============================================ */
+
+.roadmap-view {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--space-6);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* ============================================
+   HEADER CARD
+   ============================================ */
+
+.roadmap-header {
+  background: linear-gradient(135deg, var(--primary-50) 0%, white 100%);
+  border: 2px solid var(--primary-200);
+  margin-bottom: var(--space-8);
+  position: relative;
+  overflow: hidden;
+}
+
+.roadmap-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+}
+
+.roadmap-header h2 {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  margin: 0 0 var(--space-3);
+  color: var(--gray-900);
+  letter-spacing: -0.02em;
+}
+
+.roadmap-header .meta {
+  color: var(--primary-600);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  margin: 0 0 var(--space-4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.roadmap-header .summary {
+  color: var(--gray-700);
+  line-height: 1.7;
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-base);
+}
+
+.roadmap-header .progress-meta {
+  color: var(--gray-600);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin: var(--space-4) 0 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--gray-200);
+}
+
+/* ============================================
+   SECTION CARDS
+   ============================================ */
+
+.section {
+  margin-bottom: var(--space-6);
+}
+
+.section h3 {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  margin: 0 0 var(--space-5);
+  color: var(--gray-900);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.section h3::before {
+  content: '';
+  width: 4px;
+  height: 24px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+}
+
+/* ============================================
+   SKILL TAGS
+   ============================================ */
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition: all var(--transition-base);
+}
+
+.tag.has {
+  background: var(--success-50);
+  color: var(--success-700);
+  border: 1px solid var(--success-200);
+}
+
+.tag.has svg {
+  color: var(--success-600);
+}
+
+.tag.has:hover {
+  background: var(--success-100);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.tag.gap {
+  background: var(--primary-50);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-200);
+}
+
+.tag.gap svg {
+  color: var(--primary-500);
+}
+
+.tag.gap:hover {
+  background: var(--primary-100);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+/* ============================================
+   GAP SECTION
+   ============================================ */
+
+.gap-section {
+  border-left: 4px solid var(--primary-500);
+  background: linear-gradient(135deg, var(--primary-50) 0%, white 100%);
+}
+
+/* ============================================
+   JOB SUMMARY
+   ============================================ */
+
+.job-summary {
+  color: var(--gray-700);
+  line-height: 1.8;
+  font-size: var(--text-base);
+  margin: 0;
+  padding: var(--space-4);
+  background: var(--gray-50);
+  border-radius: var(--radius-lg);
+  border-left: 3px solid var(--primary-500);
+}
+
+/* ============================================
+   LEARNING PHASES
+   ============================================ */
+
+.phases {
+  padding: var(--space-8);
+}
+
+.phase {
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  margin-bottom: var(--space-4);
+  transition: all var(--transition-base);
+  background: white;
+  overflow: hidden;
+}
+
+.phase:hover {
+  border-color: var(--primary-300);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.phase.completed {
+  border-color: var(--success-300);
+  background: linear-gradient(135deg, var(--success-50) 0%, white 100%);
+}
+
+.phase.completed .phase-header {
+  background: var(--success-50);
+}
+
+/* Phase Header */
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--gray-50);
+  transition: all var(--transition-base);
+}
+
+.phase.open .phase-header {
+  background: var(--primary-50);
+  border-bottom: 2px solid var(--primary-200);
+}
+
+.phase-check {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--gray-400);
+  transition: all var(--transition-base);
+  flex-shrink: 0;
+}
+
+.phase-check:hover {
+  color: var(--primary-600);
+  transform: scale(1.1);
+}
+
+.phase-check .checked {
+  color: var(--success-600);
+}
+
+.phase-header-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+  user-select: none;
+}
+
+.phase-header-main svg {
+  color: var(--gray-500);
+  flex-shrink: 0;
+  transition: transform var(--transition-base);
+}
+
+.phase.open .phase-header-main svg {
+  color: var(--primary-600);
+}
+
+.phase-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--gray-900);
+  flex: 1;
+}
+
+.phase-weeks {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--primary-600);
+  background: white;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--primary-200);
+}
+
+/* Phase Body */
+.phase-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  padding: 0 var(--space-5);
+}
+
+.phase.open .phase-body {
+  max-height: 2000px;
+  padding: var(--space-6) var(--space-5) var(--space-5);
+}
+
+.goals {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-6);
+}
+
+.goals li {
+  padding: var(--space-3) 0;
+  padding-left: var(--space-6);
+  color: var(--gray-700);
+  font-size: var(--text-base);
+  font-weight: 500;
+  position: relative;
+  line-height: 1.6;
+}
+
+.goals li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--primary-600);
+  font-weight: 700;
+  font-size: var(--text-lg);
+}
+
+/* Phase Skills */
+.phase-skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.phase-skill {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  transition: all var(--transition-base);
+}
+
+.phase-skill:hover {
+  background: white;
+  border-color: var(--primary-300);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.phase-skill span {
+  font-weight: 600;
+  color: var(--gray-900);
+  font-size: var(--text-sm);
+}
+
+.phase-skill .link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--primary-600);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all var(--transition-base);
+}
+
+.phase-skill .link:hover {
+  color: var(--primary-700);
+  gap: var(--space-3);
+}
+
+.tips {
+  background: var(--primary-50);
+  border-left: 3px solid var(--primary-500);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  color: var(--gray-700);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  margin: 0;
+  font-style: italic;
+}
+
+/* ============================================
+   UNLOCK CARD
+   ============================================ */
+
+.unlock-card {
+  background: linear-gradient(135deg, var(--success-50) 0%, white 100%);
+  border: 2px solid var(--success-300);
+  text-align: center;
+  padding: var(--space-10) var(--space-8);
+  position: relative;
+  overflow: hidden;
+}
+
+.unlock-card::before {
+  content: '🎉';
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  font-size: 3rem;
+  opacity: 0.3;
+}
+
+.unlock-card h3 {
+  color: var(--success-700);
+  margin-bottom: var(--space-4);
+  justify-content: center;
+}
+
+.unlock-card h3::before {
+  background: var(--success-600);
+}
+
+.unlock-card p {
+  color: var(--gray-700);
+  margin-bottom: var(--space-6);
+  font-size: var(--text-lg);
+}
+
+.unlock-card .btn {
+  margin: 0 auto;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+  .roadmap-view {
+    padding: var(--space-4);
+  }
+
+  .roadmap-header h2 {
+    font-size: var(--text-2xl);
+  }
+
+  .phase-header {
+    padding: var(--space-4);
+  }
+
+  .phase-title {
+    font-size: var(--text-base);
+  }
+
+  .phase-skills {
+    grid-template-columns: 1fr;
+  }
+
+  .phase-weeks {
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-3);
+  }
+
+  .unlock-card {
+    padding: var(--space-8) var(--space-6);
+  }
+}
