@@ -97,9 +97,10 @@ export default function App() {
         </button>
         <div className="logo">
           <img src="/logo1.png" alt="Career Accelerator Logo" className="header-logo-img" />
-          <h1>AI Powered Career Development Platform: Career Accelerator</h1>
+          <h1>Career Accelerator</h1>
         </div>
-        <p className="tagline">Upload your resume, set your target role — get a personalized learning path to close the gap.</p>
+        <p className="tagline">AI-Powered Career Development Platform</p>
+        <p className="tagline" style={{ fontSize: '0.95rem', marginTop: '0.5rem' }}>Upload your resume, set your target role — get a personalized learning path.</p>
       </header>
 
       <main className="main">
