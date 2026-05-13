@@ -7,7 +7,7 @@ import './styles/footer.css';
 export default function LandingPage({ onSelectFeature }) {
   return (
     <div className="landing-page-modern">
-      {/* Navigation Bar */}
+      {/* Navigation Bar
       <nav className="hero-nav">
         <div className="nav-container">
           <div className="nav-logo">
@@ -19,7 +19,7 @@ export default function LandingPage({ onSelectFeature }) {
             <a href="#about">About</a>
           </div>
         </div>
-      </nav>
+      </nav> */}
 
       {/* Hero Section */}
       <section className="hero-section">

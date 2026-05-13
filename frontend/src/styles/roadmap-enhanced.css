@@ -5,7 +5,7 @@
 .roadmap-view {
   max-width: 1200px;
   margin: 0 auto;
-  padding: calc(var(--space-8) + 100px) var(--space-6) var(--space-6);
+  padding: var(--space-8) var(--space-6) var(--space-6);
   min-height: 100vh;
 }
 

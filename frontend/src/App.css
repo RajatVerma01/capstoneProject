@@ -16,7 +16,7 @@
 .app {
   max-width: 1400px;
   margin: 0 auto;
-  padding: calc(var(--space-8) + 100px) var(--space-6) var(--space-8);
+  padding: var(--space-8) var(--space-6);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -27,7 +27,7 @@
 .ai-interview-view {
   max-width: 1400px;
   margin: 0 auto;
-  padding: calc(var(--space-8) + 100px) var(--space-6) var(--space-8);
+  padding: var(--space-8) var(--space-6);
   min-height: 100vh;
 }
 
@@ -71,66 +71,6 @@
   width: 100%;
 }
 
-/* ============================================
-   HEADER SECTION (for other pages)
-   ============================================ */
-
-.header {
-  text-align: center;
-  margin-bottom: var(--space-12);
-  animation: fadeInDown 0.8s ease-out;
-  position: relative;
-}
-
-.logo {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-4);
-  margin-bottom: var(--space-6);
-  padding: var(--space-4) var(--space-8);
-  background: white;
-  border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-lg);
-  transition: all var(--transition-base);
-}
-
-.header-logo-img {
-  height: 32px;
-  width: auto;
-  object-fit: contain;
-}
-
-.logo:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-xl);
-}
-
-.logo svg {
-  color: var(--primary-600);
-  filter: drop-shadow(0 2px 8px rgba(59, 130, 246, 0.3));
-}
-
-.header h1 {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 900;
-  margin: 0 0 var(--space-4);
-  letter-spacing: -0.02em;
-  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-800) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.tagline {
-  color: var(--gray-600);
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  margin: 0;
-  font-weight: 500;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
 .footer {
   text-align: center;
   padding: var(--space-12) var(--space-6);
@@ -148,9 +88,7 @@
 }
 
 .back-home-btn {
-  position: absolute;
-  left: var(--space-6);
-  top: var(--space-6);
+  margin-bottom: var(--space-6);
 }
 
 /* ============================================
@@ -198,27 +136,18 @@
 
 @media (max-width: 768px) {
   .app {
-    padding: calc(var(--space-4) + 90px) var(--space-4) var(--space-4);
+    padding: var(--space-4);
   }
   
   .job-search-view,
   .ai-interview-view,
   .faang-questions-view {
-    padding: calc(var(--space-4) + 90px) var(--space-4) var(--space-4);
-  }
-  
-  .header h1,
-  .view-header h1 {
-    font-size: 2rem;
-  }
-  
-  .tagline,
-  .view-header p {
-    font-size: 1rem;
+    padding: var(--space-4);
   }
   
   .back-home-btn {
-    position: static;
+    width: 100%;
+    justify-content: center;
     margin-bottom: var(--space-4);
   }
 }

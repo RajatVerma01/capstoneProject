@@ -1,0 +1,539 @@
+/* ============================================
+   RESPONSIVE DESIGN - Mobile-First Approach
+   App-like feel for all devices
+   ============================================ */
+
+/* ============================================
+   BASE MOBILE STYLES (320px+)
+   ============================================ */
+
+/* Smooth scrolling and touch optimization */
+html {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+}
+
+body {
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mobile hero section - ONLY for landing page */
+@media (max-width: 767px) {
+  .hero-section {
+    padding: calc(80px + var(--space-8)) var(--space-4) var(--space-8);
+    min-height: auto;
+  }
+
+  .hero-nav {
+    padding: var(--space-3) var(--space-4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .nav-container {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .nav-logo img {
+    height: 40px;
+  }
+
+  .nav-links {
+    display: none; /* Hide on mobile, show hamburger menu */
+  }
+}
+
+.hero-title {
+  font-size: clamp(1.75rem, 8vw, 3rem);
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 4vw, 1.25rem);
+}
+
+.hero-cta {
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.btn-hero-primary,
+.btn-hero-secondary {
+  width: 100%;
+  justify-content: center;
+  padding: var(--space-4) var(--space-6);
+  font-size: 1rem;
+}
+
+/* Mobile-optimized containers */
+@media (max-width: 767px) {
+  .container {
+    padding: 0 var(--space-4);
+    max-width: 100%;
+  }
+
+  .hero-title {
+    font-size: clamp(1.75rem, 8vw, 3rem);
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 4vw, 1.25rem);
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 100%;
+  }
+
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    width: 100%;
+    justify-content: center;
+    padding: var(--space-4) var(--space-6);
+    font-size: 1rem;
+  }
+}
+
+/* Mobile cards */
+@media (max-width: 767px) {
+  .card {
+    padding: var(--space-5);
+    margin-bottom: var(--space-4);
+    border-radius: var(--radius-xl);
+  }
+}
+
+/* Mobile forms */
+@media (max-width: 767px) {
+  .form-card {
+    padding: var(--space-5);
+  }
+
+  .form-row {
+    margin-bottom: var(--space-4);
+  }
+
+  .input,
+  .filter-select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: var(--space-3) var(--space-4);
+  }
+}
+
+/* Mobile buttons */
+@media (max-width: 767px) {
+  .btn {
+    padding: var(--space-3) var(--space-6);
+    font-size: 1rem;
+    min-height: 44px; /* iOS touch target */
+    touch-action: manipulation;
+  }
+
+  .btn-large {
+    padding: var(--space-4) var(--space-8);
+    font-size: 1.125rem;
+  }
+}
+
+/* Mobile grids */
+@media (max-width: 767px) {
+  .features-grid,
+  .jobs-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  /* Mobile stats */
+  .faang-stats,
+  .hero-steps {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  /* Mobile filters */
+  .filters-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .filter-pills {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    justify-content: center;
+  }
+
+  .filter-pill {
+    font-size: 0.875rem;
+    padding: var(--space-2) var(--space-4);
+  }
+
+  /* Mobile question cards */
+  .question-card {
+    padding: var(--space-4);
+  }
+
+  .question-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .question-meta {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  /* Mobile job cards */
+  .job-card {
+    padding: var(--space-4);
+  }
+
+  .job-meta {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  /* Mobile roadmap */
+  .phases {
+    padding-left: var(--space-4);
+  }
+
+  .phases::before {
+    left: 8px;
+  }
+
+  .phase::before {
+    left: -32px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .phase-header {
+    padding: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .phase-title {
+    font-size: 1rem;
+  }
+
+  /* Mobile interview */
+  .video-call-container {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .interviewer-section,
+  .user-section {
+    width: 100%;
+    height: 50vh;
+  }
+
+  .call-controls {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: var(--space-3);
+  }
+
+  .control-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Mobile footer */
+  .modern-footer {
+    padding: var(--space-8) var(--space-4);
+  }
+
+  .footer-content {
+    text-align: center;
+  }
+
+  /* Mobile modals and popups */
+  .question-popup,
+  .conversation-history {
+    width: 95%;
+    max-width: 95%;
+    max-height: 80vh;
+    padding: var(--space-4);
+  }
+
+  /* Mobile dropzone */
+  .dropzone {
+    padding: var(--space-8) var(--space-4);
+    min-height: 150px;
+  }
+}
+
+/* ============================================
+   TABLET STYLES (768px+)
+   ============================================ */
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--space-6);
+  }
+
+  .nav-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: var(--space-6);
+  }
+
+  .hero-section {
+    padding: calc(100px + var(--space-12)) var(--space-6) var(--space-12);
+  }
+
+  .hero-cta {
+    flex-direction: row;
+    width: auto;
+  }
+
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    width: auto;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  .faang-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  .hero-steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .filters-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .jobs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card {
+    padding: var(--space-6);
+  }
+
+  .form-card {
+    padding: var(--space-8);
+  }
+
+  .video-call-container {
+    flex-direction: row;
+  }
+
+  .interviewer-section,
+  .user-section {
+    width: 50%;
+    height: 100vh;
+  }
+
+  .question-popup,
+  .conversation-history {
+    width: 80%;
+    max-width: 600px;
+  }
+}
+
+/* ============================================
+   DESKTOP STYLES (1024px+)
+   ============================================ */
+
+@media (min-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .faang-stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .filters-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .jobs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .phases {
+    padding-left: var(--space-8);
+  }
+
+  .phases::before {
+    left: 20px;
+  }
+
+  .phase::before {
+    left: -48px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* ============================================
+   LARGE DESKTOP (1280px+)
+   ============================================ */
+
+@media (min-width: 1280px) {
+  .jobs-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ============================================
+   TOUCH DEVICE OPTIMIZATIONS
+   ============================================ */
+
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets */
+  .btn,
+  .filter-pill,
+  .control-btn,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Remove hover effects on touch devices */
+  .card:hover,
+  .btn:hover,
+  .feature-card:hover {
+    transform: none;
+  }
+
+  /* Add active states instead */
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  .card:active {
+    transform: scale(0.99);
+  }
+}
+
+/* ============================================
+   LANDSCAPE MOBILE (568px height)
+   ============================================ */
+
+@media (max-height: 568px) and (orientation: landscape) {
+  .hero-section {
+    padding: calc(60px + var(--space-6)) var(--space-4) var(--space-6);
+  }
+
+  .video-call-container {
+    flex-direction: row;
+  }
+
+  .interviewer-section,
+  .user-section {
+    width: 50%;
+    height: 100vh;
+  }
+}
+
+/* ============================================
+   SAFE AREA INSETS (iPhone notch, etc.)
+   ============================================ */
+
+@supports (padding: max(0px)) {
+  .hero-nav {
+    padding-left: max(var(--space-4), env(safe-area-inset-left));
+    padding-right: max(var(--space-4), env(safe-area-inset-right));
+    padding-top: max(var(--space-3), env(safe-area-inset-top));
+  }
+
+  .container {
+    padding-left: max(var(--space-4), env(safe-area-inset-left));
+    padding-right: max(var(--space-4), env(safe-area-inset-right));
+  }
+
+  .modern-footer {
+    padding-bottom: max(var(--space-8), env(safe-area-inset-bottom));
+  }
+}
+
+/* ============================================
+   LOADING STATES - App-like feel
+   ============================================ */
+
+.loading-state,
+.loading-jobs {
+  padding: var(--space-12) var(--space-4);
+}
+
+.loading-state svg,
+.loading-jobs svg {
+  animation: spin 1s linear infinite;
+}
+
+/* ============================================
+   SMOOTH TRANSITIONS
+   ============================================ */
+
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Disable transitions during page load */
+.preload * {
+  transition: none !important;
+}
+
+/* ============================================
+   ACCESSIBILITY - Focus visible
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+  .hero-nav,
+  .btn,
+  .call-controls,
+  .back-home-btn {
+    display: none;
+  }
+
+  .card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}

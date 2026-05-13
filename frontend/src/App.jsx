@@ -91,17 +91,9 @@ export default function App() {
   // Skill-Gap Analysis feature
   return (
     <div className="app">
-      <header className="header">
-        <button className="btn btn-ghost back-home-btn" onClick={handleBackToLanding}>
-          ← Home
-        </button>
-        <div className="logo">
-          <img src="/logo1.png" alt="Career Accelerator Logo" className="header-logo-img" />
-          <h1>Career Accelerator</h1>
-        </div>
-        <p className="tagline">AI-Powered Career Development Platform</p>
-        <p className="tagline" style={{ fontSize: '0.95rem', marginTop: '0.5rem' }}>Upload your resume, set your target role — get a personalized learning path.</p>
-      </header>
+      <button className="btn btn-ghost back-home-btn" onClick={handleBackToLanding}>
+        ← Home
+      </button>
 
       <main className="main">
         {!result ? (
