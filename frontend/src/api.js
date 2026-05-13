@@ -1,4 +1,5 @@
-const API_BASE = '/api';
+// API Base URL - uses Vercel backend service route in production
+const API_BASE = import.meta.env.PROD ? '/_/backend/api' : '/api';
 
 export async function analyzeResume(formData) {
   const res = await fetch(`${API_BASE}/roadmap/analyze`, {
