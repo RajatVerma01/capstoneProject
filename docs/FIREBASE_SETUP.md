@@ -1,6 +1,6 @@
-# Firebase Setup Guide — Skill-Gap Career Roadmap
+# Firebase Setup Guide — Career Accelerator
 
-This guide walks you through everything you need to do in Firebase so the **Skill-Gap Career Roadmap** backend can store and read roadmaps in Firestore.
+This guide walks you through everything you need to do in Firebase so the **Career Accelerator** backend can store and read roadmaps in Firestore.
 
 ---
 
@@ -17,7 +17,7 @@ This guide walks you through everything you need to do in Firebase so the **Skil
 
 1. Go to **[Firebase Console](https://console.firebase.google.com/)** and sign in with your Google account.
 2. Click **“Create a project”** (or **“Add project”** if you already have projects).
-3. Enter a **project name** (e.g. `skill-gap-roadmap`).
+3. Enter a **project name** (e.g. `career-accelerator`).
 4. (Optional) Turn off Google Analytics if you don’t need it.
 5. Click **“Create project”** and wait until it’s ready, then **“Continue”**.
 
@@ -78,7 +78,7 @@ The backend needs a **service account private key** to connect to Firestore.
 1. In Firebase Console, click the **gear icon** next to “Project overview” → **“Project settings”**.
 2. Open the **“Service accounts”** tab.
 3. Click **“Generate new private key”** at the bottom → **“Generate key”**.  
-   - A JSON file will download (e.g. `skill-gap-roadmap-firebase-adminsdk-xxxxx.json`).
+   - A JSON file will download (e.g. `career-accelerator-firebase-adminsdk-xxxxx.json`).
 4. **Keep this file secret.** Do not commit it to Git (it’s already in `.gitignore` as `*-service-account*.json`).
 
 ---

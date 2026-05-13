@@ -11,7 +11,7 @@ export default function LandingPage({ onSelectFeature }) {
       <nav className="hero-nav">
         <div className="nav-container">
           <div className="nav-logo">
-            <img src="/logo1.png" alt="Career Accelerator Logo" className="nav-logo-img" />
+            Career Accelerator
           </div>
           <div className="nav-links">
             <a href="#features">Features</a>
@@ -171,7 +171,7 @@ export default function LandingPage({ onSelectFeature }) {
       <footer className="modern-footer">
         <div className="footer-content">
           <div className="footer-brand">
-            <img src="/logo1.png" alt="Career Accelerator Logo" className="footer-logo-img" />
+            Career Accelerator
           </div>
           <p style={{ fontWeight: 600, marginBottom: 'var(--space-3)' }}>Developed by Rajat Verma (2201330100201), Rajeev Patel (2201330100202), Kapil Gangwar (2201330100128), Shivam Kumar (2201330100316)</p>
           <p>Built for B.Tech students — your complete career growth platform</p>
