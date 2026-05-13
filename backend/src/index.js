@@ -23,13 +23,20 @@ app.use('/api/faang-questions', faangQuestionsRoutes);
 
 app.get('/api/health', (_, res) => res.json({ ok: true }));
 
-// Start server
-if (!config.geminiApiKey || !config.geminiApiKey.trim()) {
-  console.error('\n⚠️  GEMINI_API_KEY is not set. Add it to backend/.env and restart.');
-  console.error('   Get a key at: https://aistudio.google.com/apikey\n');
+// Start server (only for local development)
+if (!config.geminiApiKey && !config.groqApiKey) {
+  console.error('\n⚠️  No API key set. Add GROQ_API_KEY or GEMINI_API_KEY to backend/.env and restart.');
+  console.error('   Get Groq key at: https://console.groq.com/keys');
+  console.error('   Get Gemini key at: https://aistudio.google.com/apikey\n');
 }
 
-app.listen(config.port, () => {
-  console.log(`✅ Server running at http://localhost:${config.port}`);
-  console.log(`📝 Using in-memory storage (no database required)`);
-});
+// Only start server if not in serverless environment (Vercel)
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  app.listen(config.port, () => {
+    console.log(`✅ Server running at http://localhost:${config.port}`);
+    console.log(`📝 Using in-memory storage (no database required)`);
+  });
+}
+
+// Export for Vercel serverless functions
+export default app;

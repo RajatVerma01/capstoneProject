@@ -31,7 +31,8 @@ router.post('/analyze', upload.single('resume'), async (req, res) => {
 
     console.log('Starting analysis for:', targetJobTitle);
 
-    const resumeText = await extractTextFromFile(file.path);
+    // Use buffer for Vercel, fallback to path for local
+    const resumeText = await extractTextFromFile(file.buffer || file.path);
     if (!resumeText || resumeText.length < 50) {
       return res.status(400).json({
         error: 'Could not extract enough text from resume. Use PDF or TXT.',

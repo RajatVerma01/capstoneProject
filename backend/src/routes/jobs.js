@@ -31,7 +31,9 @@ router.post('/upload-resume', upload.single('resume'), async (req, res) => {
     }
 
     const resumePath = req.file.path;
-    const { skills, experience, education } = await extractResumeSkills(resumePath);
+    const { skills, experience, education } = await extractResumeSkills(
+      req.file.buffer || resumePath
+    );
 
     // Save job profile to Firestore
     const profile = await createJobProfile({

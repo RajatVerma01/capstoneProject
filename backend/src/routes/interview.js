@@ -12,15 +12,11 @@ import {
 
 const router = express.Router();
 
-// File upload setup
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'uploads/'),
-  filename: (req, file, cb) => {
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-    cb(null, `resume-${uniqueSuffix}${path.extname(file.originalname)}`);
-  },
+// File upload setup - Use memory storage for Vercel
+const upload = multer({ 
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
 });
-const upload = multer({ storage });
 
 // POST /api/interview/start - Start a new interview
 router.post('/start', upload.single('resume'), async (req, res) => {
@@ -40,8 +36,10 @@ router.post('/start', upload.single('resume'), async (req, res) => {
     const resumePath = req.file.path;
     const interviewDuration = parseInt(duration) || 5; // Default 5 minutes
     
-    // Extract skills and summary from resume
-    const { skills, experience, resumeSummary } = await extractResumeSkills(resumePath);
+    // Extract skills and summary from resume (pass buffer for Vercel)
+    const { skills, experience, resumeSummary } = await extractResumeSkills(
+      req.file.buffer || resumePath
+    );
 
     // Start interview with AI
     const { firstQuestion, context } = await startInterviewAgent({
