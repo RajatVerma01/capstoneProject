@@ -106,7 +106,6 @@ export default function FAANGQuestionsView({ onBack }) {
       </button>
 
       <div className="faang-logo-container">
-        <img src="/logo1.png" alt="Logo" className="faang-logo" />
       </div>
 
       <div className="faang-hero">

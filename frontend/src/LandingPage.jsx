@@ -92,8 +92,8 @@ export default function LandingPage({ onSelectFeature }) {
       {/* Features Grid Section */}
       <section className="features-grid-section" id="features">
         <div className="section-header">
-          <h2>Everything You Need to Succeed</h2>
-          <p>Comprehensive tools to accelerate your career journey</p>
+          <h2>Career Accelerator</h2>
+          <p>Your AI-powered companion for career growth — from skill gaps to job offers</p>
         </div>
 
         <div className="features-grid">

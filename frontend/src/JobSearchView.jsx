@@ -111,7 +111,6 @@ export default function JobSearchView({ onBack }) {
       </button>
 
       <div className="job-search-logo-container">
-        <img src="/logo1.png" alt="Logo" className="job-search-logo" />
       </div>
 
       <div className="job-search-hero">
