@@ -1,8 +1,8 @@
 {
-  "name": "skill-gap-roadmap",
+  "name": "career-accelerator",
   "version": "1.0.0",
   "private": true,
-  "description": "AI-Powered Skill-Gap Career Roadmap Agent",
+  "description": "AI Powered Career Development Platform: Career Accelerator",
   "scripts": {
     "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
     "dev:backend": "cd backend && npm run dev",

@@ -96,8 +96,8 @@ export default function App() {
           ← Home
         </button>
         <div className="logo">
-          <img src="/logo.png" alt="Career Accelerator Logo" className="header-logo-img" />
-          <h1>Skill-Gap Career Roadmap</h1>
+          <img src="/logo1.png" alt="Career Accelerator Logo" className="header-logo-img" />
+          <h1>AI Powered Career Development Platform: Career Accelerator</h1>
         </div>
         <p className="tagline">Upload your resume, set your target role — get a personalized learning path to close the gap.</p>
       </header>
@@ -174,7 +174,8 @@ export default function App() {
       </main>
 
       <footer className="footer">
-        <p>Built for B.Tech students — bridge the gap between your resume and your dream role.</p>
+        <p>Developed by Rajat Verma (2201330100201), Rajeev Patel (2201330100202), Kapil Gangwar (2201330100128), Shivam Kumar (2201330100316)</p>
+        <p style={{ marginTop: 'var(--space-2)', fontSize: '0.875rem', opacity: 0.8 }}>Built for B.Tech students — bridge the gap between your resume and your dream role.</p>
       </footer>
     </div>
   );

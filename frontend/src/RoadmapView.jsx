@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ExternalLink, ChevronDown, ChevronRight, CheckCircle, Circle, CheckSquare, Square, FileText } from 'lucide-react';
 import { getRoadmap, updateRoadmapProgress } from './api';
-import './styles/roadmap.css';
+import './styles/roadmap-enhanced.css';
 
 export default function RoadmapView({ data, onOpenResumeBuilder }) {
   const { id, targetJobTitle, result, progress: initialProgress, allPhasesCompleted: initialAllDone } = data;
@@ -55,6 +55,10 @@ export default function RoadmapView({ data, onOpenResumeBuilder }) {
 
   return (
     <div className="roadmap-view">
+      <div className="roadmap-logo-container">
+        <img src="/logo1.png" alt="Logo" className="roadmap-logo" />
+      </div>
+      
       <div className="card roadmap-header">
         <h2>Your roadmap: {targetJobTitle}</h2>
         {roadmap?.estimatedDuration && (
@@ -62,10 +66,21 @@ export default function RoadmapView({ data, onOpenResumeBuilder }) {
         )}
         {roadmap?.summary && <p className="summary">{roadmap.summary}</p>}
         {totalPhases > 0 && (
-          <p className="progress-meta">
-            Progress: {completedPhaseIndices.length} / {totalPhases} phases completed
-            {saving && ' • Saving…'}
-          </p>
+          <>
+            <p className="progress-meta">
+              Progress: {completedPhaseIndices.length} / {totalPhases} phases completed
+              {saving && ' • Saving…'}
+            </p>
+            <div className="progress-bar-container">
+              <div 
+                className="progress-bar-fill" 
+                style={{ width: `${(completedPhaseIndices.length / totalPhases) * 100}%` }}
+              />
+              <span className="progress-percentage">
+                {Math.round((completedPhaseIndices.length / totalPhases) * 100)}%
+              </span>
+            </div>
+          </>
         )}
       </div>
 

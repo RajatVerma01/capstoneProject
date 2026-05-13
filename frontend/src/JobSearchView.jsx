@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Upload, Search, Loader2, Briefcase, MapPin, DollarSign, Clock, Bell, BellOff, Mail } from 'lucide-react';
 import { uploadResumeForJobs, searchJobs, setupFaangAlerts, getFaangAlerts, deleteFaangAlert } from './api';
+import './styles/job-search.css';
 
 export default function JobSearchView({ onBack }) {
   const [file, setFile] = useState(null);
@@ -105,12 +106,31 @@ export default function JobSearchView({ onBack }) {
 
   return (
     <div className="job-search-view">
-      <div className="view-header">
-        <button className="btn btn-ghost" onClick={onBack}>
-          ← Back to Home
-        </button>
+      <button className="btn btn-ghost" onClick={onBack} style={{ marginBottom: 'var(--space-4)' }}>
+        ← Back to Home
+      </button>
+
+      <div className="job-search-logo-container">
+        <img src="/logo1.png" alt="Logo" className="job-search-logo" />
+      </div>
+
+      <div className="job-search-hero">
         <h1>Job Search & FAANG Alerts</h1>
         <p>Upload your resume to find matching jobs and setup alerts</p>
+        <div className="hero-steps">
+          <div className="hero-step">
+            <span className="hero-step-icon">📄</span>
+            <span>Upload</span>
+          </div>
+          <div className="hero-step">
+            <span className="hero-step-icon">🔍</span>
+            <span>Analyze</span>
+          </div>
+          <div className="hero-step">
+            <span className="hero-step-icon">💼</span>
+            <span>Match</span>
+          </div>
+        </div>
       </div>
 
       {!resumeUploaded ? (

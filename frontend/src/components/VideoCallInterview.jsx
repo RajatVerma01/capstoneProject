@@ -10,7 +10,8 @@ export default function VideoCallInterview({
   onSendMessage,
   onEndCall,
   isSending,
-  language = 'English'
+  language = 'English',
+  interviewEnded = false,
 }) {
   const [stream, setStream] = useState(null);
   const [isMicOn, setIsMicOn] = useState(true);
@@ -18,11 +19,13 @@ export default function VideoCallInterview({
   const [isListening, setIsListening] = useState(false);
   const [showTranscript, setShowTranscript] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(duration * 60);
+  const [timeIsUp, setTimeIsUp] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState('');
   const [showQuestionPopup, setShowQuestionPopup] = useState(false);
   const [lastSpokenText, setLastSpokenText] = useState('');
   const [voiceReady, setVoiceReady] = useState(false); // Track if voice is initialized
   const [interimTranscript, setInterimTranscript] = useState(''); // Show what's being heard
+  const timerRef = useRef(null);
   
   const isHindi = language === 'Hindi';
   const videoRef = useRef(null);
@@ -122,19 +125,29 @@ export default function VideoCallInterview({
     };
   }, [isHindi]);
 
-  // Timer countdown
+  // Timer countdown — auto-end when time is up
   useEffect(() => {
-    const interval = setInterval(() => {
+    timerRef.current = setInterval(() => {
       setTimeRemaining(prev => {
         if (prev <= 1) {
-          clearInterval(interval);
+          clearInterval(timerRef.current);
+          // Stop mic and speech
+          if (recognitionRef.current) recognitionRef.current.stop();
+          window.speechSynthesis.cancel();
+          setIsListening(false);
+          setShowQuestionPopup(false);
+          setTimeIsUp(true);
+          // Auto-trigger end after brief delay so user sees the message
+          setTimeout(() => {
+            onEndCall();
+          }, 2500);
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(timerRef.current);
   }, []);
 
   // Speak interviewer messages with popup
@@ -376,8 +389,8 @@ export default function VideoCallInterview({
           <div className="call-status-dot"></div>
           <span>Interview in Progress</span>
         </div>
-        <div className={`call-timer ${timeRemaining < 60 ? 'warning' : ''}`}>
-          {formatTime(timeRemaining)}
+        <div className={`call-timer ${timeRemaining < 60 ? 'warning' : ''} ${timeRemaining < 30 ? 'critical' : ''}`}>
+          ⏱ {formatTime(timeRemaining)}
         </div>
       </div>
 
@@ -592,6 +605,35 @@ export default function VideoCallInterview({
         >
           <MessageSquare size={20} />
         </button>
+      )}
+
+      {/* Time's Up Overlay */}
+      {timeIsUp && (
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 50,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'rgba(0,0,0,0.75)',
+          backdropFilter: 'blur(8px)',
+          gap: '16px',
+        }}>
+          <div style={{ fontSize: '64px' }}>⏰</div>
+          <h2 style={{ color: 'white', fontSize: '32px', margin: 0 }}>Time's Up!</h2>
+          <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '18px', margin: 0 }}>
+            Generating your interview report...
+          </p>
+          <div style={{
+            width: '48px', height: '48px',
+            border: '4px solid rgba(255,255,255,0.3)',
+            borderTopColor: 'white',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite',
+          }} />
+        </div>
       )}
 
       {/* Enable Voice Button (shows when voice not ready) */}

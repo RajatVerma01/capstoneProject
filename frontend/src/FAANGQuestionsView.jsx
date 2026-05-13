@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Loader2, Filter, BookOpen, Code, TrendingUp } from 'lucide-react';
 import { getFAANGQuestions } from './api';
+import './styles/faang-questions.css';
 
 const COMPANIES = ['All', 'Google', 'Meta', 'Amazon', 'Apple', 'Netflix', 'Microsoft'];
 const DIFFICULTIES = ['All', 'Easy', 'Medium', 'Hard'];
@@ -100,12 +101,36 @@ export default function FAANGQuestionsView({ onBack }) {
 
   return (
     <div className="faang-questions-view">
-      <div className="view-header">
-        <button className="btn btn-ghost" onClick={onBack}>
-          ← Back to Home
-        </button>
+      <button className="btn btn-ghost" onClick={onBack} style={{ marginBottom: 'var(--space-4)' }}>
+        ← Back to Home
+      </button>
+
+      <div className="faang-logo-container">
+        <img src="/logo1.png" alt="Logo" className="faang-logo" />
+      </div>
+
+      <div className="faang-hero">
         <h1>FAANG Interview Questions</h1>
         <p>Real interview questions from top tech companies</p>
+      </div>
+
+      <div className="faang-stats">
+        <div className="stat-card">
+          <div className="stat-value">{filteredQuestions.length}</div>
+          <div className="stat-label">Questions</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-value">{COMPANIES.length - 1}</div>
+          <div className="stat-label">Companies</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-value">{DIFFICULTIES.length - 1}</div>
+          <div className="stat-label">Difficulty Levels</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-value">{TYPES.length - 1}</div>
+          <div className="stat-label">Question Types</div>
+        </div>
       </div>
 
       <div className="questions-filters-card card">

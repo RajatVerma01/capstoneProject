@@ -14,27 +14,27 @@ export default function AIInterviewView({ onBack }) {
   const [language, setLanguage] = useState('English'); // English or Hindi
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  
+
   // Interview state
   const [interviewId, setInterviewId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState('');
   const [sending, setSending] = useState(false);
   const [interviewEnded, setInterviewEnded] = useState(false);
-  
+
   // Voice state
   const [isListening, setIsListening] = useState(false);
   const [voiceEnabled, setVoiceEnabled] = useState(true);
   const [currentSpeakingText, setCurrentSpeakingText] = useState('');
   const recognitionRef = useRef(null);
-  
+
   // Timer state
   const [timeRemaining, setTimeRemaining] = useState(0); // in seconds
   const [timerInterval, setTimerInterval] = useState(null);
-  
+
   // Report state
   const [report, setReport] = useState(null);
-  
+
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -83,24 +83,8 @@ export default function AIInterviewView({ onBack }) {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // Timer effect
-  useEffect(() => {
-    if (timeRemaining > 0 && !interviewEnded) {
-      const interval = setInterval(() => {
-        setTimeRemaining(prev => {
-          if (prev <= 1) {
-            clearInterval(interval);
-            handleTimeUp();
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-      setTimerInterval(interval);
-      
-      return () => clearInterval(interval);
-    }
-  }, [timeRemaining, interviewEnded]);
+  // Timer is now owned by VideoCallInterview — removed duplicate timer here
+  // interviewEnded is set when VideoCallInterview calls onEndCall (time up or manual end)
 
   // Speak the latest assistant message
   useEffect(() => {
@@ -123,6 +107,8 @@ export default function AIInterviewView({ onBack }) {
     if (timerInterval) {
       clearInterval(timerInterval);
     }
+    // Auto-generate the report
+    handleEndInterview();
   }
 
   function toggleVoiceInput() {
@@ -154,7 +140,7 @@ export default function AIInterviewView({ onBack }) {
   async function handleStartInterview(e) {
     e.preventDefault();
     setError('');
-    
+
     if (!file || !jobRole.trim() || !userName.trim()) {
       setError('Please fill in all fields and upload your resume.');
       return;
@@ -168,13 +154,13 @@ export default function AIInterviewView({ onBack }) {
       formData.append('userName', userName.trim());
       formData.append('duration', duration);
       formData.append('language', language);
-      
+
       const data = await startInterview(formData);
       setInterviewId(data.interviewId);
       setMessages(data.messages || []);
       setTimeRemaining(duration * 60); // Convert minutes to seconds
       setStep('interview');
-      
+
       // Speak the first question
       if (data.messages && data.messages.length > 0 && voiceEnabled) {
         setCurrentSpeakingText(data.messages[0].content);
@@ -188,7 +174,7 @@ export default function AIInterviewView({ onBack }) {
 
   async function handleSendMessage(messageText) {
     const userMessage = typeof messageText === 'string' ? messageText : userInput.trim();
-    
+
     if (!userMessage || sending) return;
 
     setUserInput('');
@@ -201,10 +187,10 @@ export default function AIInterviewView({ onBack }) {
 
     try {
       const data = await sendInterviewMessage(interviewId, userMessage);
-      
+
       // Add AI response
       setMessages(prev => [...prev, { role: 'assistant', content: data.response }]);
-      
+
       // Check if interview should end
       if (data.shouldEnd) {
         setInterviewEnded(true);
@@ -222,7 +208,7 @@ export default function AIInterviewView({ onBack }) {
   async function handleEndInterview() {
     setLoading(true);
     setError('');
-    
+
     try {
       const data = await endInterview(interviewId);
       setReport(data.report);
@@ -390,6 +376,7 @@ export default function AIInterviewView({ onBack }) {
           onSendMessage={handleSendMessage}
           onEndCall={handleEndInterview}
           isSending={sending}
+          interviewEnded={interviewEnded}
         />
       )}
 

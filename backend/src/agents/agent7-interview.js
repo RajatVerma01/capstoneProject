@@ -123,53 +123,105 @@ Return ONLY your follow-up question as plain text (no JSON, no labels).`;
 }
 
 export async function generateInterviewReport({ messages, jobRole, skills }) {
-  const conversationHistory = messages
-    .map(m => `${m.role === 'user' ? 'Candidate' : 'Interviewer'}: ${m.content}`)
-    .join('\n\n');
+  const userMessages = messages.filter(m => m.role === 'user');
+  const assistantMessages = messages.filter(m => m.role === 'assistant');
+  
+  // Build a numbered Q&A list for deeper analysis
+  const qaPairs = assistantMessages.map((q, i) => {
+    const answer = userMessages[i];
+    return `Q${i + 1}: ${q.content}\nA${i + 1}: ${answer ? answer.content : '(no answer given)'}`;
+  }).join('\n\n');
 
-  const prompt = `You are an expert interview evaluator. Analyze this interview for the ${jobRole} position.
+  const totalQuestions = assistantMessages.length;
+  const answeredQuestions = userMessages.length;
 
-Candidate Skills: ${skills.join(', ')}
+  const prompt = `You are a senior technical recruiter evaluating a candidate's mock interview performance.
 
-Interview Transcript:
-${conversationHistory}
+Role being interviewed for: ${jobRole}
+Candidate's stated skills: ${skills.join(', ')}
+Total questions asked: ${totalQuestions}
+Questions answered: ${answeredQuestions}
 
-Generate a comprehensive interview report with:
-1. Overall Score (0-100)
-2. Performance Level (e.g., "Excellent", "Good", "Needs Improvement")
-3. Top 3-5 Strengths
-4. Top 3-5 Areas for Improvement
-5. Detailed Feedback (2-3 paragraphs)
-6. 3-5 Specific Recommendations
+--- FULL INTERVIEW Q&A ---
+${qaPairs}
+--- END OF INTERVIEW ---
 
-Return ONLY valid JSON in this exact format:
+PRODUCE A HIGHLY PERSONALIZED, GENUINE EVALUATION. Your report MUST:
+1. Reference SPECIFIC things the candidate actually said (quote or paraphrase directly from their answers)
+2. Identify gaps between what they claimed to know (skills) and what they demonstrated in answers
+3. Evaluate answer depth: Did they give vague or concrete examples? Did they mention real projects/numbers?
+4. Note communication style: Were answers coherent, structured, too brief, or too rambling?
+5. If the candidate barely answered (< 2 answers), reflect that honestly with a low score
+
+SCORING GUIDE:
+- 90-100: Exceptional - concrete examples, deep domain knowledge, confident delivery
+- 75-89: Good - solid answers with some specific examples, minor gaps
+- 60-74: Average - mostly generic answers, lacks depth or specificity  
+- 40-59: Below average - vague, off-topic, or very short answers
+- 0-39: Poor - almost no meaningful answers or very limited participation
+
+Return ONLY valid JSON in this EXACT format (no markdown, no extra text):
 {
-  "overallScore": 85,
-  "performanceLevel": "Good",
-  "strengths": ["strength1", "strength2", ...],
-  "improvements": ["improvement1", "improvement2", ...],
-  "detailedFeedback": "detailed paragraph...",
-  "recommendations": ["rec1", "rec2", ...]
+  "overallScore": <number 0-100>,
+  "performanceLevel": "<Exceptional|Strong|Good|Average|Below Average|Needs Significant Improvement>",
+  "strengths": [
+    "<specific strength with example from their answer>",
+    "<specific strength with example from their answer>",
+    "<specific strength with example from their answer>"
+  ],
+  "improvements": [
+    "<specific weakness referencing what they said or didn't say>",
+    "<specific weakness referencing what they said or didn't say>",
+    "<specific weakness referencing what they said or didn't say>"
+  ],
+  "detailedFeedback": "<3 paragraphs: (1) overall impression with specific references to their answers, (2) technical/domain assessment citing what they demonstrated or missed, (3) communication and professionalism assessment>",
+  "recommendations": [
+    "<actionable, specific recommendation based on a gap you identified>",
+    "<actionable, specific recommendation based on a gap you identified>",
+    "<actionable, specific recommendation based on a gap you identified>"
+  ],
+  "questionBreakdown": [
+    {"question": "<brief version of Q1>", "score": <0-10>, "comment": "<what was good/bad about this specific answer>"}
+  ]
 }`;
 
   try {
-    const text = await generateContent(prompt, { temperature: 0.3, maxOutputTokens: 2048 });
+    const text = await generateContent(prompt, { temperature: 0.2, maxOutputTokens: 3000 });
     
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    // Strip potential markdown code fences
+    const cleaned = text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
+    const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
       throw new Error('No JSON found in response');
     }
-    return JSON.parse(jsonMatch[0]);
+    const report = JSON.parse(jsonMatch[0]);
+    // Ensure questionBreakdown exists even if AI omits it
+    if (!report.questionBreakdown) report.questionBreakdown = [];
+    return report;
   } catch (err) {
     console.error('Failed to parse report JSON:', err.message);
-    // Return fallback report
+    // Honest fallback reflecting the actual number of questions
+    const honestScore = answeredQuestions === 0 ? 0 : Math.min(50, Math.round((answeredQuestions / Math.max(totalQuestions, 1)) * 60));
     return {
-      overallScore: 70,
-      performanceLevel: 'Good',
-      strengths: ['Demonstrated technical knowledge', 'Clear communication'],
-      improvements: ['Provide more specific examples', 'Elaborate on technical details'],
-      detailedFeedback: 'The candidate showed good understanding of the role requirements and communicated their experience effectively. There is room for improvement in providing more detailed technical explanations.',
-      recommendations: ['Practice explaining technical concepts in detail', 'Prepare specific examples from past projects', 'Research common interview questions for this role'],
+      overallScore: honestScore,
+      performanceLevel: answeredQuestions === 0 ? 'No Participation' : 'Needs Improvement',
+      strengths: answeredQuestions > 0 
+        ? ['Participated in the interview session', 'Showed willingness to engage with the interviewer']
+        : ['Joined the interview session'],
+      improvements: [
+        'Provide more detailed and specific answers using the STAR method (Situation, Task, Action, Result)',
+        'Back up claims with concrete examples from your real experience',
+        'Speak more about your specific projects and measurable outcomes',
+      ],
+      detailedFeedback: answeredQuestions === 0
+        ? 'No responses were recorded during this interview session. The candidate did not provide answers to the questions asked. To get an accurate evaluation, please complete a full interview session.'
+        : `The interview evaluation could not be fully processed due to a technical issue. The candidate answered ${answeredQuestions} out of ${totalQuestions} questions asked for the ${jobRole} position. Please retry the interview for a complete evaluation.`,
+      recommendations: [
+        `Study common ${jobRole} interview questions and prepare structured responses`,
+        'Practice the STAR method for behavioral questions',
+        'Research the company and role requirements before your next interview',
+      ],
+      questionBreakdown: [],
     };
   }
 }
