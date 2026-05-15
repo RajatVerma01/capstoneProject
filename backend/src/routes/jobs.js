@@ -1,6 +1,5 @@
 import express from 'express';
 import multer from 'multer';
-import path from 'path';
 import { extractResumeSkills } from '../agents/agent5-job-matcher.js';
 import { searchJobsAgent } from '../agents/agent6-job-search.js';
 import {
@@ -13,15 +12,8 @@ import {
 
 const router = express.Router();
 
-// File upload setup
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'uploads/'),
-  filename: (req, file, cb) => {
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-    cb(null, `resume-${uniqueSuffix}${path.extname(file.originalname)}`);
-  },
-});
-const upload = multer({ storage });
+// Memory storage for Vercel serverless (no disk writes)
+const upload = multer({ storage: multer.memoryStorage() });
 
 // POST /api/jobs/upload-resume - Upload resume and extract skills
 router.post('/upload-resume', upload.single('resume'), async (req, res) => {
@@ -30,14 +22,14 @@ router.post('/upload-resume', upload.single('resume'), async (req, res) => {
       return res.status(400).json({ error: 'No resume file uploaded' });
     }
 
-    const resumePath = req.file.path;
+    // Use buffer directly (no file path in serverless)
     const { skills, experience, education } = await extractResumeSkills(
-      req.file.buffer || resumePath
+      req.file.buffer
     );
 
-    // Save job profile to Firestore
+    // Save job profile (in-memory, no file path needed)
     const profile = await createJobProfile({
-      resumePath,
+      resumePath: req.file.originalname, // Just store filename for reference
       skills,
       experience,
       education,
