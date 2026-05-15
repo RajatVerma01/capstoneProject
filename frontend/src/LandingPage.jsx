@@ -5,6 +5,13 @@ import './styles/features.css';
 import './styles/footer.css';
 
 export default function LandingPage({ onSelectFeature }) {
+  const scrollToFeatures = () => {
+    const featuresSection = document.getElementById('features');
+    if (featuresSection) {
+      featuresSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="landing-page-modern">
       {/* Navigation Bar
@@ -42,11 +49,11 @@ export default function LandingPage({ onSelectFeature }) {
           </p>
 
           <div className="hero-cta">
-            <button className="btn-hero-primary" onClick={() => onSelectFeature('skill-gap')}>
+            <button className="btn-hero-primary" onClick={scrollToFeatures}>
               <span>Explore Tools</span>
               <ArrowRight size={20} />
             </button>
-            <button className="btn-hero-secondary">
+            <button className="btn-hero-secondary" onClick={scrollToFeatures}>
               <Play size={18} />
               <span>Try Free</span>
             </button>
